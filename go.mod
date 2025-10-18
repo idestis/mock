@@ -1,4 +1,4 @@
-module github.com/idestis/mock-backend-jobs
+module github.com/idestis/mock
 
 go 1.21
 

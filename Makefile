@@ -16,19 +16,19 @@ BINARY_PATH=bin/$(BINARY_NAME)
 MAIN_PATH=cmd/server/main.go
 
 # Docker parameters
-DOCKER_IMAGE=mock-backend-jobs
+DOCKER_IMAGE=mock
 DOCKER_TAG=latest
 
 # GHCR parameters
 GHCR_REGISTRY=ghcr.io
 GITHUB_USER?=$(shell git config user.name | tr '[:upper:]' '[:lower:]')
-GITHUB_REPO?=mock-backend-jobs
+GITHUB_REPO?=mock
 GHCR_IMAGE=$(GHCR_REGISTRY)/$(GITHUB_USER)/$(GITHUB_REPO)
 VERSION?=latest
 
 # Helm parameters
-HELM_RELEASE=mock-backend-jobs
-HELM_CHART=./helm/mock-backend-jobs
+HELM_RELEASE=mock
+HELM_CHART=./helm/mock
 
 all: test build
 

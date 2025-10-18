@@ -27,7 +27,7 @@ Returns service health and available jobs.
 ```json
 {
   "status": "healthy",
-  "service": "mock-backend-jobs",
+  "service": "mock",
   "available_jobs": ["user_annonymization", "zendesk_import", "blueshift_export"]
 }
 ```
@@ -95,25 +95,25 @@ This project includes automated GitHub Actions workflows for building and deploy
 ### Image Tags
 
 Images are automatically tagged when you push a version tag:
-- **Semver tags**: `ghcr.io/your-username/mock-backend-jobs:v1.0.0`, `v1.0`, `v1`
-- **Latest**: `ghcr.io/your-username/mock-backend-jobs:latest`
+- **Semver tags**: `ghcr.io/your-username/mock:v1.0.0`, `v1.0`, `v1`
+- **Latest**: `ghcr.io/your-username/mock:latest`
 
 ### Using GHCR Images
 
 **Pull the image:**
 ```bash
-docker pull ghcr.io/your-username/mock-backend-jobs:latest
+docker pull ghcr.io/your-username/mock:latest
 ```
 
 **Run the image:**
 ```bash
-docker run -p 8080:8080 ghcr.io/your-username/mock-backend-jobs:latest
+docker run -p 8080:8080 ghcr.io/your-username/mock:latest
 ```
 
 **Deploy with Helm:**
 ```bash
-helm install mock-backend-jobs ./helm/mock-backend-jobs \
-  --set image.repository=ghcr.io/your-username/mock-backend-jobs \
+helm install mock ./helm/mock \
+  --set image.repository=ghcr.io/your-username/mock \
   --set image.tag=latest
 ```
 
@@ -130,10 +130,10 @@ git push origin v1.0.0
 ```
 
 GitHub Actions will automatically build and push images with tags:
-- `ghcr.io/your-username/mock-backend-jobs:v1.0.0`
-- `ghcr.io/your-username/mock-backend-jobs:v1.0`
-- `ghcr.io/your-username/mock-backend-jobs:v1`
-- `ghcr.io/your-username/mock-backend-jobs:latest`
+- `ghcr.io/your-username/mock:v1.0.0`
+- `ghcr.io/your-username/mock:v1.0`
+- `ghcr.io/your-username/mock:v1`
+- `ghcr.io/your-username/mock:latest`
 
 ### GHCR Authentication
 
@@ -166,7 +166,7 @@ imagePullSecrets:
 
 1. **Clone and navigate to the project:**
 ```bash
-cd /path/to/mock-backend-jobs
+cd /path/to/mock
 ```
 
 2. **Install dependencies:**
@@ -185,12 +185,12 @@ The service will start on `http://localhost:8080`
 
 1. **Build the image:**
 ```bash
-docker build -t mock-backend-jobs:latest .
+docker build -t mock:latest .
 ```
 
 2. **Run the container:**
 ```bash
-docker run -p 8080:8080 mock-backend-jobs:latest
+docker run -p 8080:8080 mock:latest
 ```
 
 ### Using Docker with Custom Configuration
@@ -203,7 +203,7 @@ docker run -p 8080:8080 \
   -e ZENDESK_IMPORT_SHOULD_FAIL=false \
   -e BLUESHIFT_EXPORT_DURATION=20s \
   -e BLUESHIFT_EXPORT_SHOULD_FAIL=true \
-  mock-backend-jobs:latest
+  mock:latest
 ```
 
 ## Configuration
@@ -234,19 +234,19 @@ Note: Jobs have a 10% random failure chance even when not configured to fail.
 
 1. **Install the chart:**
 ```bash
-helm install mock-backend-jobs ./helm/mock-backend-jobs
+helm install mock ./helm/mock
 ```
 
 2. **Install with custom values:**
 ```bash
-helm install mock-backend-jobs ./helm/mock-backend-jobs \
-  --set image.repository=your-registry/mock-backend-jobs \
+helm install mock ./helm/mock \
+  --set image.repository=your-registry/mock \
   --set image.tag=v1.0.0
 ```
 
 3. **Install with custom job configuration:**
 ```bash
-helm install mock-backend-jobs ./helm/mock-backend-jobs \
+helm install mock ./helm/mock \
   --set-string 'env[0].name=USER_ANNONYMIZATION_DURATION' \
   --set-string 'env[0].value=10s' \
   --set-string 'env[1].name=USER_ANNONYMIZATION_SHOULD_FAIL' \
@@ -255,24 +255,24 @@ helm install mock-backend-jobs ./helm/mock-backend-jobs \
 
 4. **Upgrade the deployment:**
 ```bash
-helm upgrade mock-backend-jobs ./helm/mock-backend-jobs
+helm upgrade mock ./helm/mock
 ```
 
 5. **Uninstall:**
 ```bash
-helm uninstall mock-backend-jobs
+helm uninstall mock
 ```
 
 ### Enable Ingress
 
-Edit `helm/mock-backend-jobs/values.yaml`:
+Edit `helm/mock/values.yaml`:
 
 ```yaml
 ingress:
   enabled: true
   className: "nginx"
   hosts:
-    - host: mock-backend-jobs.yourdomain.com
+    - host: mock.yourdomain.com
       paths:
         - path: /
           pathType: Prefix
@@ -342,7 +342,7 @@ curl http://localhost:8080/api/v1/system/scheduler/status?job_id=$JOB_ID
 │   └── scheduler/
 │       └── manager.go        # Job management logic
 ├── helm/
-│   └── mock-backend-jobs/    # Helm chart
+│   └── mock/    # Helm chart
 │       ├── Chart.yaml
 │       ├── values.yaml
 │       └── templates/

@@ -66,8 +66,8 @@ Manual commands:
 ```bash
 # Build multi-architecture image
 docker buildx build --platform linux/amd64,linux/arm64 \
-  -t ghcr.io/your-username/mock-backend-jobs:v1.0.0 \
-  -t ghcr.io/your-username/mock-backend-jobs:latest \
+  -t ghcr.io/your-username/mock:v1.0.0 \
+  -t ghcr.io/your-username/mock:latest \
   --push .
 ```
 
@@ -91,7 +91,7 @@ By default, packages are private. To make them public:
 
 1. Go to your GitHub profile
 2. Click on "Packages"
-3. Find the `mock-backend-jobs` package
+3. Find the `mock` package
 4. Click "Package settings"
 5. Scroll down to "Danger Zone"
 6. Click "Change visibility" → "Public"
@@ -102,10 +102,10 @@ By default, packages are private. To make them public:
 
 ```bash
 # Pull the image
-docker pull ghcr.io/your-username/mock-backend-jobs:latest
+docker pull ghcr.io/your-username/mock:latest
 
 # Run the container
-docker run -p 8080:8080 ghcr.io/your-username/mock-backend-jobs:latest
+docker run -p 8080:8080 ghcr.io/your-username/mock:latest
 ```
 
 ### Deploy to Kubernetes
@@ -123,8 +123,8 @@ kubectl create secret docker-registry ghcr-secret \
 Deploy with Helm:
 
 ```bash
-helm install mock-backend-jobs ./helm/mock-backend-jobs \
-  --set image.repository=ghcr.io/your-username/mock-backend-jobs \
+helm install mock ./helm/mock \
+  --set image.repository=ghcr.io/your-username/mock \
   --set image.tag=v1.0.0 \
   --set imagePullSecrets[0].name=ghcr-secret
 ```
@@ -150,10 +150,10 @@ git push origin v1.0.0
 ```
 
 GitHub Actions will automatically create these tags:
-- `ghcr.io/your-username/mock-backend-jobs:v1.0.0`
-- `ghcr.io/your-username/mock-backend-jobs:v1.0`
-- `ghcr.io/your-username/mock-backend-jobs:v1`
-- `ghcr.io/your-username/mock-backend-jobs:latest`
+- `ghcr.io/your-username/mock:v1.0.0`
+- `ghcr.io/your-username/mock:v1.0`
+- `ghcr.io/your-username/mock:v1`
+- `ghcr.io/your-username/mock:latest`
 
 ### Tag-Only Builds
 
@@ -216,7 +216,7 @@ gh run list
 gh run view
 
 # Delete a package version
-gh api -X DELETE /user/packages/container/mock-backend-jobs/versions/VERSION_ID
+gh api -X DELETE /user/packages/container/mock/versions/VERSION_ID
 ```
 
 ## Resources

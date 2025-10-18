@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "mock-backend-jobs.name" -}}
+{{- define "mock.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "mock-backend-jobs.fullname" -}}
+{{- define "mock.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,16 +24,16 @@ Create a default fully qualified app name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "mock-backend-jobs.chart" -}}
+{{- define "mock.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "mock-backend-jobs.labels" -}}
-helm.sh/chart: {{ include "mock-backend-jobs.chart" . }}
-{{ include "mock-backend-jobs.selectorLabels" . }}
+{{- define "mock.labels" -}}
+helm.sh/chart: {{ include "mock.chart" . }}
+{{ include "mock.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -43,17 +43,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "mock-backend-jobs.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "mock-backend-jobs.name" . }}
+{{- define "mock.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mock.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "mock-backend-jobs.serviceAccountName" -}}
+{{- define "mock.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "mock-backend-jobs.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "mock.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

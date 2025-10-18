@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "mock-backend-jobs.fullname" . }}
+  name: {{ include "mock.fullname" . }}
   labels:
-    {{- include "mock-backend-jobs.labels" . | nindent 4 }}
+    {{- include "mock.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "mock-backend-jobs.selectorLabels" . | nindent 4 }}
+    {{- include "mock.selectorLabels" . | nindent 4 }}

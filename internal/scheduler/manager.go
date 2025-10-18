@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/idestis/mock-backend-jobs/internal/models"
+	"github.com/idestis/mock/internal/models"
 	"github.com/google/uuid"
 )
 

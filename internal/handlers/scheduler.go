@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/idestis/mock-backend-jobs/internal/models"
-	"github.com/idestis/mock-backend-jobs/internal/scheduler"
+	"github.com/idestis/mock/internal/models"
+	"github.com/idestis/mock/internal/scheduler"
 	"github.com/labstack/echo/v4"
 )
 
@@ -83,7 +83,7 @@ func (h *SchedulerHandler) GetJobStatus(c echo.Context) error {
 func (h *SchedulerHandler) HealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": "healthy",
-		"service": "mock-backend-jobs",
+		"service": "mock",
 		"available_jobs": h.manager.GetAvailableJobs(),
 	})
 }
