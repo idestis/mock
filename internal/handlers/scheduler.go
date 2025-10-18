@@ -60,7 +60,7 @@ func (h *SchedulerHandler) GetJobStatus(c echo.Context) error {
 		// Return all jobs if no job_id provided
 		jobs := h.manager.GetAllJobs()
 		return c.JSON(http.StatusOK, map[string]interface{}{
-			"jobs": jobs,
+			"jobs":  jobs,
 			"count": len(jobs),
 		})
 	}
@@ -82,8 +82,8 @@ func (h *SchedulerHandler) GetJobStatus(c echo.Context) error {
 // HealthCheck handles GET /health
 func (h *SchedulerHandler) HealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "healthy",
-		"service": "mock",
+		"status":         "healthy",
+		"service":        "mock",
 		"available_jobs": h.manager.GetAvailableJobs(),
 	})
 }

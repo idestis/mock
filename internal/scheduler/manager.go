@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/idestis/mock/internal/models"
 	"github.com/google/uuid"
+	"github.com/idestis/mock/internal/models"
 )
 
 // Manager handles job scheduling and execution

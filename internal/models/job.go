@@ -23,12 +23,12 @@ type JobConfig struct {
 
 // Job represents a job execution instance
 type Job struct {
-	ID         string    `json:"id"`
-	Name       string    `json:"name"`
-	Status     JobStatus `json:"status"`
-	StartedAt  time.Time `json:"started_at"`
+	ID         string     `json:"id"`
+	Name       string     `json:"name"`
+	Status     JobStatus  `json:"status"`
+	StartedAt  time.Time  `json:"started_at"`
 	FinishedAt *time.Time `json:"finished_at,omitempty"`
-	Error      string    `json:"error,omitempty"`
+	Error      string     `json:"error,omitempty"`
 }
 
 // JobTriggerRequest represents the request to trigger a job
@@ -45,6 +45,6 @@ type JobTriggerResponse struct {
 
 // JobStatusResponse represents the response for job status
 type JobStatusResponse struct {
-	Job *Job `json:"job,omitempty"`
+	Job     *Job   `json:"job,omitempty"`
 	Message string `json:"message,omitempty"`
 }
