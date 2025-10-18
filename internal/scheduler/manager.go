@@ -27,17 +27,17 @@ func NewManager() *Manager {
 	// Initialize hardcoded jobs with default configurations
 	m.jobConfigs["user_annonymization"] = models.JobConfig{
 		Name:          "user_annonymization",
-		ExecutionTime: 5 * time.Second,
+		ExecutionTime: 2 * time.Minute,
 		ShouldFail:    false,
 	}
 	m.jobConfigs["zendesk_import"] = models.JobConfig{
 		Name:          "zendesk_import",
-		ExecutionTime: 8 * time.Second,
+		ExecutionTime: 1 * time.Minute,
 		ShouldFail:    false,
 	}
 	m.jobConfigs["blueshift_export"] = models.JobConfig{
 		Name:          "blueshift_export",
-		ExecutionTime: 10 * time.Second,
+		ExecutionTime: 30 * time.Second,
 		ShouldFail:    true, // This job is configured to fail by default
 	}
 
