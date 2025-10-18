@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.21-alpine AS builder
+FROM --platform=linux/arm64 golang:1.21-alpine AS builder
 
 # Install build dependencies
 RUN apk add --no-cache git
@@ -17,10 +17,10 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/server
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -a -installsuffix cgo -o main ./cmd/server
 
 # Final stage
-FROM alpine:latest
+FROM --platform=linux/arm64 alpine:latest
 
 RUN apk --no-cache add ca-certificates
 
