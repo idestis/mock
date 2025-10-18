@@ -1,0 +1,96 @@
+replicaCount: 1
+
+image:
+  # For local builds, use: mock-backend-jobs
+  # For GitHub Container Registry, use: ghcr.io/your-username/mock-backend-jobs
+  repository: mock-backend-jobs
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: mock-backend-jobs.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: mock-backend-jobs-tls
+  #    hosts:
+  #      - mock-backend-jobs.local
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Environment variables for job configuration
+env:
+  - name: PORT
+    value: "8080"
+  # Configure job execution time and failure behavior
+  # - name: USER_ANNONYMIZATION_DURATION
+  #   value: "10s"
+  # - name: USER_ANNONYMIZATION_SHOULD_FAIL
+  #   value: "false"
+  # - name: ZENDESK_IMPORT_DURATION
+  #   value: "15s"
+  # - name: ZENDESK_IMPORT_SHOULD_FAIL
+  #   value: "false"
+  # - name: BLUESHIFT_EXPORT_DURATION
+  #   value: "20s"
+  # - name: BLUESHIFT_EXPORT_SHOULD_FAIL
+  #   value: "true"
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5

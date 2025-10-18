@@ -1,0 +1,10 @@
+apiVersion: v2
+name: mock-backend-jobs
+description: A Helm chart for mock backend jobs scheduler
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - scheduler
+  - jobs
+  - mock
