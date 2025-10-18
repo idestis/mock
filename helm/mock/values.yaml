@@ -1,9 +1,7 @@
 replicaCount: 1
 
 image:
-  # For local builds, use: mock
-  # For GitHub Container Registry, use: ghcr.io/your-username/mock
-  repository: mock
+  repository: ghcr.io/idestis/mock
   pullPolicy: IfNotPresent
   tag: "latest"
 
